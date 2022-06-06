@@ -1,8 +1,8 @@
-import { createContext, ReactNode, useCallback, useContext, useMemo, useState } from "react";
-import { ThemeProvider } from "@mui/material";
-import { Box } from "@mui/system";
+import { createContext, ReactNode, useCallback, useContext, useMemo, useState } from 'react'
+import { ThemeProvider } from '@mui/material'
+import { Box } from '@mui/system'
 
-import { DarkTheme, LightTheme } from "../themes";
+import { DarkTheme, LightTheme } from '../themes'
 
 interface IThemeContextData {
   themeName?: 'light' | 'dark'
