@@ -1,4 +1,4 @@
-import { ListTools } from '../../shared/components'
+import { DetailTools } from '../../shared/components'
 import { LayoutDefaultOfPage } from '../../shared/layouts'
 
 
@@ -8,9 +8,8 @@ export const Dashboard = () => {
     <LayoutDefaultOfPage
       titles='Painel'
       toolBar={(
-        <ListTools
-          showSearchInput
-          textButton='Nova'
+        <DetailTools
+          
         />
       )}
     >
