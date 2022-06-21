@@ -47,7 +47,7 @@ export const DetailTools: React.FC<IDetailToolsProps> = ({
 }) => {
   const theme = useTheme()
   const smDown = useMediaQuery(theme.breakpoints.down('sm'))
-  // const mdDown = useMediaQuery(theme.breakpoints.down('md'))
+  const mdDown = useMediaQuery(theme.breakpoints.down('md'))
 
   return (
     <Box
@@ -66,10 +66,13 @@ export const DetailTools: React.FC<IDetailToolsProps> = ({
           disableElevation
           variant='contained'
           onClick={ onClickSave }
-          startIcon={ <Icon>save</Icon> }
+          startIcon={ !smDown && (<Icon>save</Icon>) }
         >
           <Typography variant='button' whiteSpace='nowrap' textOverflow='ellipsis' overflow='hidden'>
-            Salvar 
+            {smDown
+              ? <Icon>save</Icon>
+              : 'Salvar'
+            }
           </Typography>
         </Button>
       )}
@@ -78,7 +81,7 @@ export const DetailTools: React.FC<IDetailToolsProps> = ({
         <Skeleton width={110} height={60} />
       )}
 
-      {(showButtonSaveAndBack && !showButtonLoadingSaveAndBack && !smDown) && (
+      {(showButtonSaveAndBack && !showButtonLoadingSaveAndBack && !mdDown && !smDown) && (
         <Button
           color='primary'
           disableElevation
@@ -92,7 +95,7 @@ export const DetailTools: React.FC<IDetailToolsProps> = ({
         </Button>
       )}
 
-      {showButtonLoadingSaveAndBack && (
+      {(showButtonLoadingSaveAndBack && !mdDown && !smDown) && (
         <Skeleton width={180} height={60} />
       )}
 
@@ -114,7 +117,7 @@ export const DetailTools: React.FC<IDetailToolsProps> = ({
         <Skeleton width={110} height={60} />
       )}
 
-      {(showButtonNew && !showButtonLoadingNew) && (
+      {(showButtonNew && !showButtonLoadingNew && !smDown) && (
         <Button
           color='primary'
           disableElevation
@@ -128,11 +131,17 @@ export const DetailTools: React.FC<IDetailToolsProps> = ({
         </Button>
       )}
 
-      {showButtonLoadingNew && (
+      {(showButtonLoadingNew && !smDown) && (
         <Skeleton width={110} height={60} />
       )}
 
-      <Divider variant='middle' orientation='vertical' />
+      {
+        (showButtonBack && 
+          (showButtonNew || showButtonDelete || showButtonSave || showButtonSaveAndBack)
+        ) && (
+          <Divider variant='middle' orientation='vertical' />
+        )
+      }
 
       {(showButtonBack && !showButtonLoadingBack) && (
         <Button

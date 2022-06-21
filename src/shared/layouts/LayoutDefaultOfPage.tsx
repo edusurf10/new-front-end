@@ -3,12 +3,12 @@ import { useDrawerContext } from '../contexts'
 import { Box, Icon, IconButton, Typography, useMediaQuery, useTheme } from '@mui/material'
 
 interface ILayoutDefaultOfPageProps {
-  titles: string
+  title: string
   toolBar?: ReactNode
   children?: ReactNode
 }
 
-export const LayoutDefaultOfPage: React.FC<ILayoutDefaultOfPageProps> = ({ children, titles, toolBar }) => {
+export const LayoutDefaultOfPage: React.FC<ILayoutDefaultOfPageProps> = ({ children, title, toolBar }) => {
   const theme = useTheme()
   const smDown = useMediaQuery(theme.breakpoints.down('sm'))
   const mdDown = useMediaQuery(theme.breakpoints.down('md'))
@@ -36,7 +36,7 @@ export const LayoutDefaultOfPage: React.FC<ILayoutDefaultOfPageProps> = ({ child
           whiteSpace='nowrap'
           textOverflow='ellipsis'
         >
-          { titles }
+          { title }
         </Typography>
       </Box>
 
