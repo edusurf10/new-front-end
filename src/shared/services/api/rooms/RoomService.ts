@@ -1,7 +1,7 @@
 import { Api } from '../axios-config'
 
 
-interface IRoomList {
+export interface IRoomList {
   id: number
   name: string
   description: string
@@ -10,10 +10,14 @@ interface IRoomList {
   cape: string
   roomState: string
   tableState: string
-  userId: number
+  roomPassword?: string
+  user: {
+    id: number
+    avatar: string
+  }
 }
 
-interface IShowRoom {
+export interface IShowRoom {
   id: number
   name: string
   description: string
@@ -30,13 +34,14 @@ type TRoomListWithTotalCount = {
   totalCount: number;
 }
 
-const getAll = async (): Promise<TRoomListWithTotalCount | Error> => {
+const getAll = async (page: number, search: string): Promise<TRoomListWithTotalCount | Error> => {
   try {
-    const url = '/rooms'
+    const url = `/rooms?page=${page}&search=${search}`
 
     const { data } = await Api.get<IRoomList[]>(url)
 
     if (data) {
+      console.log(data)
       return {
         data,
         totalCount: data.length

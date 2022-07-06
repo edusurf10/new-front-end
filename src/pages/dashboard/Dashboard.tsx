@@ -6,10 +6,10 @@ export const Dashboard = () => {
 
   return (
     <LayoutDefaultOfPage
-      title='Painel'
+      title='Painel de controle'
       toolBar={(
         <DetailTools
-          
+
         />
       )}
     >
