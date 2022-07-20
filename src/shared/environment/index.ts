@@ -10,8 +10,8 @@ export const Environment = {
 
   EMPTY_LIST: 'Nenhum registro encontrado!',
 
-  BASE_URL: 'http://172.16.120.100:3500/api',
+  BASE_URL: 'http://0.0.0.0:3500/api',
 
-  CHAT_URL: 'http://192.168.0.14:4000'
+  CHAT_URL: 'http://0.0.0.0:4000'
 
 }
