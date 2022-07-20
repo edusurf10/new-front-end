@@ -17,6 +17,16 @@ export interface IRoomList {
   }
 }
 
+export interface IRoomCreate {
+  name?: string,
+  description?: string,
+  longDescription?: string,
+  systemType?: string,
+  maxUser?: string,
+  cape?: string,
+  roomPassword?: string,
+}
+
 export interface IShowRoom {
   id: number
   name: string
@@ -30,21 +40,20 @@ export interface IShowRoom {
 }
 
 type TRoomListWithTotalCount = {
-  data: IRoomList[];
+  rooms: IRoomList[];
   totalCount: number;
 }
 
-const getAll = async (page: number, search: string): Promise<TRoomListWithTotalCount | Error> => {
+const getAll = async (page: number, per_page: number, search: string): Promise<TRoomListWithTotalCount | Error> => {
   try {
-    const url = `/rooms?page=${page}&search=${search}`
+    const url = `/rooms?page=${page}&per_page=${per_page}&search=${search}`
 
-    const { data } = await Api.get<IRoomList[]>(url)
+    const { data, headers } = await Api.get(url)
 
     if (data) {
-      console.log(data)
       return {
-        data,
-        totalCount: data.length
+        rooms: data,
+        totalCount: Number(headers['totalCount'])
       }
     }
 
@@ -70,7 +79,7 @@ const getById = async (id: number): Promise<IShowRoom | Error> => {
   }
 }
 
-const create = async (payload: Omit<IShowRoom, 'id'>): Promise<number | Error> => {
+const create = async (payload: IRoomCreate): Promise<number | Error> => {
   try {
     const { data } = await Api.post<IShowRoom>('/rooms', payload)
 

@@ -3,46 +3,62 @@ import { Box, Button, Divider, Icon, Paper, Skeleton, Typography, useMediaQuery,
 
 interface IDetailToolsProps {
   textButtonNew?: string
+  textButtonBack?: string
+  textButtonSave?: string
+  textButtonDelete?: string
+  textButtonSaveAndBack?: string
+  textButtonSaveAndJoin?: string
 
   showButtonNew?: boolean
   showButtonBack?: boolean
   showButtonSave?: boolean
   showButtonDelete?: boolean
   showButtonSaveAndBack?: boolean
+  showButtonSaveAndJoin?: boolean
 
   showButtonLoadingNew?: boolean
   showButtonLoadingBack?: boolean
   showButtonLoadingSave?: boolean
   showButtonLoadingDelete?: boolean
   showButtonLoadingSaveAndBack?: boolean
+  showButtonLoadingSaveAndJoin?: boolean
 
   onClickNew?: () => void
   onClickBack?: () => void
   onClickSave?: () => void
   onClickDelete?: () => void
   onClickSaveAndBack?: () => void
+  onClickSaveAndJoin?: () => void
 }
 
 export const DetailTools: React.FC<IDetailToolsProps> = ({
   textButtonNew = 'Novo',
+  textButtonBack = 'Voltar',
+  textButtonSave = 'Salvar',
+  textButtonDelete = 'Apagar',
+  textButtonSaveAndBack = 'Salvar e voltar',
+  textButtonSaveAndJoin = 'Salvar e entrar',
 
   showButtonNew = true,
   showButtonBack = true,
   showButtonSave = true,
   showButtonDelete = true,
   showButtonSaveAndBack = true,
+  showButtonSaveAndJoin = true,
 
   showButtonLoadingNew = false,
   showButtonLoadingBack = false,
   showButtonLoadingSave = false,
   showButtonLoadingDelete = false,
   showButtonLoadingSaveAndBack = false,
+  showButtonLoadingSaveAndJoin = false,
 
   onClickNew,
   onClickBack,
   onClickSave,
   onClickDelete,
-  onClickSaveAndBack
+  onClickSaveAndBack,
+  onClickSaveAndJoin,
 
 }) => {
   const theme = useTheme()
@@ -59,6 +75,7 @@ export const DetailTools: React.FC<IDetailToolsProps> = ({
       component={Paper}
       alignItems='center'
       height={theme.spacing(5)}
+      variant='outlined'
     >
       {(showButtonSave && !showButtonLoadingSave) && (
         <Button
@@ -69,10 +86,7 @@ export const DetailTools: React.FC<IDetailToolsProps> = ({
           startIcon={ !smDown && (<Icon>save</Icon>) }
         >
           <Typography variant='button' whiteSpace='nowrap' textOverflow='ellipsis' overflow='hidden'>
-            {smDown
-              ? <Icon>save</Icon>
-              : 'Salvar'
-            }
+            { textButtonSave}
           </Typography>
         </Button>
       )}
@@ -81,16 +95,30 @@ export const DetailTools: React.FC<IDetailToolsProps> = ({
         <Skeleton width={110} height={60} />
       )}
 
+      {(showButtonSaveAndJoin && !showButtonLoadingSaveAndJoin) && (
+        <Button
+          color='primary'
+          disableElevation
+          variant='contained'
+          onClick={ onClickSaveAndJoin }
+          startIcon={ <Icon>input</Icon> }
+        >
+          <Typography variant='button' whiteSpace='nowrap' textOverflow='ellipsis' overflow='hidden'>
+            { textButtonSaveAndJoin }
+          </Typography>
+        </Button>
+      )}
+
       {(showButtonSaveAndBack && !showButtonLoadingSaveAndBack && !mdDown && !smDown) && (
         <Button
           color='primary'
           disableElevation
           variant='outlined'
           onClick={ onClickSaveAndBack }
-          startIcon={ <Icon>save</Icon> }
+          startIcon={ <Icon>keyboard_return</Icon> }
         >
           <Typography variant='button' whiteSpace='nowrap' textOverflow='ellipsis' overflow='hidden'>
-            Salvar e voltar
+            { textButtonSaveAndBack }
           </Typography>
         </Button>
       )}
@@ -108,7 +136,7 @@ export const DetailTools: React.FC<IDetailToolsProps> = ({
           startIcon={ <Icon>delete</Icon> }
         >
           <Typography variant='button' whiteSpace='nowrap' textOverflow='ellipsis' overflow='hidden'>
-            Apagar 
+            { textButtonDelete }
           </Typography>
         </Button>
       )}
@@ -126,7 +154,7 @@ export const DetailTools: React.FC<IDetailToolsProps> = ({
           startIcon={ <Icon>add</Icon> }
         >
           <Typography variant='button' whiteSpace='nowrap' textOverflow='ellipsis' overflow='hidden'>
-            { textButtonNew } 
+            { textButtonNew }
           </Typography>
         </Button>
       )}
@@ -136,7 +164,7 @@ export const DetailTools: React.FC<IDetailToolsProps> = ({
       )}
 
       {
-        (showButtonBack && 
+        (showButtonBack &&
           (showButtonNew || showButtonDelete || showButtonSave || showButtonSaveAndBack)
         ) && (
           <Divider variant='middle' orientation='vertical' />
@@ -152,7 +180,7 @@ export const DetailTools: React.FC<IDetailToolsProps> = ({
           startIcon={ <Icon>arrow_back</Icon> }
         >
           <Typography variant='button' whiteSpace='nowrap' textOverflow='ellipsis' overflow='hidden'>
-            Voltar 
+            { textButtonBack }
           </Typography>
         </Button>
       )}

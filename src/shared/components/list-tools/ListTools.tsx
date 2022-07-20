@@ -30,6 +30,7 @@ export const ListTools: React.FC<IlistToolsProps> = ({
       component={Paper}
       alignItems='center'
       height={theme.spacing(5)}
+      variant='outlined'
     >
       {showSearchInput && (
         <TextField
@@ -50,9 +51,9 @@ export const ListTools: React.FC<IlistToolsProps> = ({
             disableElevation
             variant='contained'
             onClick={ onClickButton }
-            endIcon={ <Icon>add</Icon> }
+            startIcon={ <Icon>add</Icon> }
           >
-            { textButton } 
+            { textButton }
           </Button>
         )}
       </Box>

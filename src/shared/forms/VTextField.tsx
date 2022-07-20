@@ -1,0 +1,36 @@
+import { useEffect, useState } from 'react'
+import { Fade, TextField, TextFieldProps, Tooltip } from '@mui/material'
+import { useField } from '@unform/core'
+
+type TVTextFieldProps = TextFieldProps & {
+  name: string
+  tips: string
+  placement: 'bottom-end' | 'bottom-start' | 'bottom' | 'left-end' | 'left-start' | 'left' | 'right-end' | 'right-start' | 'right' | 'top-end' | 'top-start' | 'top'
+}
+export const VTextField: React.FC<TVTextFieldProps> = ({ name, tips, placement, ...rest }) => {
+  const { fieldName, registerField, defaultValue, error, clearError } = useField(name)
+
+  const [ value, setValue] = useState(defaultValue || '')
+
+  useEffect(() => {
+    registerField({
+      name: fieldName,
+      getValue: () => value,
+      setValue: (_, newValue) => setValue(newValue),
+    })
+  }, [registerField, fieldName, value])
+
+  return (
+    <Tooltip title={tips} arrow TransitionComponent={Fade} placement={placement}>
+      <TextField
+        {...rest}
+        value={value}
+        error={!!error}
+        helperText={error}
+        defaultValue={defaultValue}
+        onChange={(e) => { setValue(e.target.value); rest.onChange?.(e) }}
+        onKeyDown={(e) => { error && clearError(); rest.onKeyDown?.(e) }}
+      />
+    </Tooltip>
+  )
+}

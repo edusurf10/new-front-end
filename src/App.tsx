@@ -1,5 +1,6 @@
-
 import { BrowserRouter } from 'react-router-dom'
+
+import './shared/forms/YupTranslation'
 
 import { AppThemeProvider, DrawerProvider } from './shared/contexts'
 import { LateralMenu } from './shared/components'
