@@ -10,7 +10,7 @@ export const Environment = {
 
   EMPTY_LIST: 'Nenhum registro encontrado!',
 
-  BASE_URL: 'http://0.0.0.0:3500/api',
+  BASE_URL: 'https://atlaabackendrails.herokuapp.com/api',
 
   CHAT_URL: 'http://0.0.0.0:4000'
 
