@@ -28,7 +28,7 @@ interface IShowUser {
     status: string
     observation: string
     avatar: string
-    cellphone: number
+    cellphone: string
     atlaaCoins: number
     favoriteRooms: [
       {
