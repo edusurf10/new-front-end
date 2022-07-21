@@ -1,13 +1,13 @@
 import { LayoutDefaultOfPage } from '../../shared/layouts'
 
 
-export const Dashboard = () => {
+export const Contact = () => {
 
   return (
     <LayoutDefaultOfPage
-      title='Painel de controle'
+      title='Contato'
     >
-      Painel de controle
+      Contato
     </LayoutDefaultOfPage>
   )
 }

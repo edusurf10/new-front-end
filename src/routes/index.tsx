@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
-import { Dashboard, NewRoom, RoomList } from '../pages'
+import { Contact, Dashboard, Home, NewRoom, RoomList } from '../pages'
 import { useDrawerContext } from '../shared/contexts'
 
 export const AppRoutes = () => {
@@ -34,13 +34,13 @@ export const AppRoutes = () => {
 
   return (
     <Routes>
-      <Route path='/home' element={<h1>Novidades em breve!</h1>} />
+      <Route path='/home' element={<Home />} />
 
       <Route path='/rooms' element={<RoomList />} />
       <Route path='/rooms/new' element={<NewRoom />} />
       <Route path='/rooms/:id' element={<h1>Tela do jogo</h1>} />
 
-      <Route path='/contact' element={<Dashboard />} />
+      <Route path='/contact' element={<Contact />} />
 
       <Route path='/panel' element={<Dashboard />} />
 

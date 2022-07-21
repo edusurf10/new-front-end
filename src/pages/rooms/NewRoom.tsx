@@ -15,7 +15,7 @@ const formValidationSchema: yup.SchemaOf<IRoomCreate> = yup.object().shape({
   systemType: yup.string().required().max(30),
   maxUser: yup.string().required(),
   cape: yup.string().url().matches(/(.png|.jpeg|.jpg)$/, { message: 'A URL deve terminar com .png ou .jpg ou .jpeg', excludeEmptyString: true }),
-  roomPassword: yup.string().min(5).max(12)
+  roomPassword: yup.string().max(12)
 })
 
 export const NewRoom: React.FC = () =>  {
@@ -200,9 +200,15 @@ export const NewRoom: React.FC = () =>  {
                       tips='Escolha uma senha para permitir a entrada somente dos seus amigos.'
                       placement='bottom'
                       type={showPassword ? 'text' : 'password'}
+                      onKeyDown={() => {
+                        setShowPassword(true)
+                      }}
+                      onKeyUp={() => {
+                        setShowPassword(false)
+                      }}
                     />
                   </Grid>
-                  <Grid item xs={4} sm={4} md={4} lg={4} xl={4}>
+                  <Grid item xs={4} sm={4} md={4} lg={4} xl={4} alignContent='center' alignItems='center' display='flex'>
                     <IconButton onClick={() => setShowPassword(!showPassword)}>
                       {showPassword ? <Icon>visibility_off</Icon> : <Icon>visibility</Icon>}
                     </IconButton>

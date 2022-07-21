@@ -1,3 +1,5 @@
 export * from './dashboard/Dashboard'
+export * from './contact/Contact'
 export * from './rooms/RoomList'
 export * from './rooms/NewRoom'
+export * from './news/Home'
