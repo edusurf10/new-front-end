@@ -7,7 +7,7 @@ export const errorInterceptor = (error: AxiosError) => {
   }
 
   if (error.response?.status === 401) {
-    // Do something
+    return Promise.reject(new Error('Não autorizado, faça o login.'))
   }
 
   return Promise.reject(error)

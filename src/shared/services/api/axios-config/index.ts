@@ -1,7 +1,7 @@
 import axios from 'axios'
 import applyCaseMiddleware from 'axios-case-converter'
 
-import { errorInterceptor, responseInterceptor } from './interceptors'
+import { errorInterceptor, responseInterceptor, requestInterceptor } from './interceptors'
 import { Environment } from '../../../environment'
 
 const Api = applyCaseMiddleware(
@@ -13,6 +13,10 @@ const Api = applyCaseMiddleware(
 Api.interceptors.response.use(
   (response) => responseInterceptor(response),
   (error) => errorInterceptor(error)
+)
+
+Api.interceptors.request.use(
+  (request) => requestInterceptor(request)
 )
 
 export { Api }

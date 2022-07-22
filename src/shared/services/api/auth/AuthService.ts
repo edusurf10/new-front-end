@@ -1,7 +1,7 @@
 import { Api } from '../axios-config'
 
 
-interface IAuth {
+export interface IAuth {
   data: {
     id: number
     provider: string
@@ -27,6 +27,11 @@ interface IAuth {
   }
 }
 
+export interface ILogout {
+  success: boolean
+  errors: string[]
+}
+
 interface IPayloadLogin {
   email: string
   password: string
@@ -42,11 +47,25 @@ const auth = async (payload: IPayloadLogin): Promise<IAuth | Error> => {
 
     return new Error('Erro ao logar.')
   } catch (error) {
-    console.error(error)
     return new Error((error as { message: string }).message || 'Erro ao logar.')
   }
 }
 
+const logout = async (): Promise<ILogout | Error> => {
+  try {
+    const { data } = await Api.delete<ILogout>('/auth/sign_out')
+
+    if (data.success) {
+      return data
+    }
+
+    return new Error(data.errors[0])
+  } catch (error) {
+    return new Error((error as { message: string }).message || 'Erro ao sair.')
+  }
+}
+
 export const AuthService = {
-  auth
+  auth,
+  logout
 }

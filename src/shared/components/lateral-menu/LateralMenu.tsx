@@ -1,6 +1,7 @@
-import { 
+import {
   Avatar,
   Box,
+  CircularProgress,
   Divider,
   Drawer,
   Icon,
@@ -11,9 +12,9 @@ import {
   useMediaQuery,
   useTheme
 } from '@mui/material'
-import { ReactNode } from 'react'
+import { ReactNode, useState } from 'react'
 import { useMatch, useNavigate, useResolvedPath } from 'react-router-dom'
-import { useAppThemeContext, useDrawerContext } from '../../contexts'
+import { useAppThemeContext, useAuthContext, useDrawerContext } from '../../contexts'
 
 interface ILateralMenuProps {
   children?: ReactNode
@@ -49,11 +50,20 @@ export const ListItemLink: React.FC<IListItemLinkProps> = ({icon, label, onClick
 }
 
 export const LateralMenu: React.FC<ILateralMenuProps> = ({ children }) => {
-
   const theme = useTheme()
   const smDown = useMediaQuery(theme.breakpoints.down('sm'))
   const { isDrawerOpen, toggleDrawerOpen, drawerOptions } = useDrawerContext()
   const { toggleTheme, themeName } = useAppThemeContext()
+  const { logout } = useAuthContext()
+
+  const [ isLoading, setIsLoading ] = useState<boolean>(false)
+
+  const handleLogout = () => {
+    setIsLoading(true)
+    logout().then(() => {
+      setIsLoading(false)
+    })
+  }
 
   return (
     <>
@@ -78,7 +88,7 @@ export const LateralMenu: React.FC<ILateralMenuProps> = ({ children }) => {
           <Box flex={1}>
             <List component='nav'>
               {drawerOptions.map(drawerOption => (
-                <ListItemLink 
+                <ListItemLink
                   key={drawerOption.path}
                   label={drawerOption.label}
                   icon={drawerOption.icon}
@@ -91,12 +101,32 @@ export const LateralMenu: React.FC<ILateralMenuProps> = ({ children }) => {
 
           <Box>
             <List component='nav'>
+
               <ListItemButton onClick={toggleTheme}>
                 <ListItemIcon>
                   <Icon>{themeName === 'dark' ? 'light_mode' : 'dark_mode'}</Icon>
                 </ListItemIcon>
                 <ListItemText primary={themeName === 'dark' ? 'Claro' : 'Escuro'} />
               </ListItemButton>
+
+              <ListItemButton onClick={handleLogout} disabled={isLoading}>
+                <ListItemIcon>
+                  <Icon>logout</Icon>
+                </ListItemIcon>
+                {isLoading ? (
+                  <>
+                    <ListItemText primary='Saindo...' />
+                    <ListItemIcon>
+                      <CircularProgress
+                        size={28}
+                      />
+                    </ListItemIcon>
+                  </>
+                ) : (
+                  <ListItemText primary='Sair' />
+                )}
+              </ListItemButton>
+
             </List>
           </Box>
         </Box>
